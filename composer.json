@@ -1,0 +1,32 @@
+{
+    "name": "aydin-hassan/mage-mocker",
+    "description": "Create fake data for magento development",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/AydinHassan/MageMocker",
+    "keywords": [
+        "magento",
+        "faker",
+        "fixtures",
+        "mock"
+    ],
+    "authors": [
+        {
+            "name": "Aydin Hassan",
+            "email": "aydin@hotmail.co.uk",
+            "homepage": "https://github.com/AydinHassan",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "fzaninotto/faker": "dev-master",
+        "symfony/console": "dev-master"        
+    },
+    "autoload": {
+        "psr-0": {
+            "MageMocker\\": "src/"
+        }
+    }
+}

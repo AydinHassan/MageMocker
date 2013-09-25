@@ -20,11 +20,14 @@ class ProductCommand extends SymfonyCommand
 
     protected $configObject;
 
-    public function __construct()
-    {
-        $this->hydrator     = new ClassMethods();
-        $this->service      = new ProductService();
-        $this->configObject = new ProductConfig();
+    public function __construct(
+        ClassMethods $hydrator,
+        ProductService $productService,
+        ProductConfig $productConfig
+    ) {
+        $this->hydrator     = $hydrator;
+        $this->service      = $productService;
+        $this->configObject = $productConfig;
         parent::__construct();
     }
 

@@ -22,7 +22,8 @@
     "require": {
         "php": ">=5.3.3",
         "fzaninotto/faker": "dev-master",
-        "symfony/console": "dev-master"        
+        "symfony/console": "dev-master",
+        "zendframework/zend-stdlib": "dev-master"
     },
     "autoload": {
         "psr-0": {

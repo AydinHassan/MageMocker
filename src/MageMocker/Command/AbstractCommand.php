@@ -48,11 +48,19 @@ abstract class AbstractCommand extends SymfonyCommand {
         parent::__construct();
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->getHydrator()->hydrate($input->getArguments(), $this->getConfigObject());
         $this->getService()->setConfigObject($this->getConfigObject());
-        echo $this->getService()->mock();
+        $messages = $this->getService()->mock();
+
+        foreach($messages as $message) {
+            $output->writeln('<error>' . $message . '</error>');
+        }
     }
 
     /**

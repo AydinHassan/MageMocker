@@ -11,7 +11,7 @@ use Symfony\Component\Console\Application;
 $magentoAppFile = getcwd() . 'app/Mage.php';
 $mageService = new MagentoService($magentoAppFile);
 if(!$mageService->validate()) {
-    echo "Cannot find app/Mage.php. Are you in a root Magento install?";
+    echo "Cannot find app/Mage.php. Are you in a root Magento install?\n\n";
     exit();
 }
 

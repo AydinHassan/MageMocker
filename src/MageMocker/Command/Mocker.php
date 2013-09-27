@@ -3,15 +3,29 @@
 namespace MageMocker\Command;
 
 use Symfony\Component\Console\Application;
-use MageMocker\Command\ProductCommand;
 use Zend\Stdlib\Hydrator\ClassMethods;
+use MageMocker\Command\ProductCommand;
 use MageMocker\Entity\ProductConfig;
 use MageMocker\Service\ProductService;
+use MageMocker\Command\AddToCartCommand;
+use MageMocker\Entity\AddToCartConfig;
+use MageMocker\Service\AddToCartService;
 
+/**
+ * Class Mocker
+ * @package MageMocker\Command
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
+ */
 class Mocker {
 
+    /**
+     * @var \Symfony\Component\Console\Application
+     */
     protected $application;
 
+    /**
+     * @param Application $application
+     */
     public function __construct(Application $application)
     {
         $this->application = $application;
@@ -21,8 +35,13 @@ class Mocker {
             new ProductConfig()
         ));
 
+        $this->application->add(new AddToCartCommand(
+            new ClassMethods(),
+            new AddToCartService(),
+            new AddToCartConfig()
+        ));
 
-        $application->run();
+        $this->application->run();
     }
 
 } 

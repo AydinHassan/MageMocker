@@ -2,36 +2,22 @@
 
 namespace MageMocker\Command;
 
-use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
-use Zend\Stdlib\Hydrator\ClassMethods;
-use MageMocker\Entity\ProductConfig;
-use MageMocker\Service\ProductService;
 
-class ProductCommand extends SymfonyCommand
+/**
+ * Class ProductCommand
+ * @package MageMocker\Command
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
+ *
+ * Command to add products to Magento
+ */
+class ProductCommand extends AbstractCommand implements CommandInterface
 {
 
-    protected $hydrator;
-
-    protected $service;
-
-    protected $configObject;
-
-    public function __construct(
-        ClassMethods $hydrator,
-        ProductService $productService,
-        ProductConfig $productConfig
-    ) {
-        $this->hydrator     = $hydrator;
-        $this->service      = $productService;
-        $this->configObject = $productConfig;
-        parent::__construct();
-    }
-
-    protected function configure()
+    /**
+     * Setup command
+     */
+    public function configure()
     {
         $this->setName('magemocker:product')
              ->setDescription('Create Fake Magento products')
@@ -61,65 +47,4 @@ class ProductCommand extends SymfonyCommand
                  "Category Id's To assign the product to (separate multiple ID's with a space)"
              );
     }
-
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        //$productConfig = new ProductConfig();
-        $this->getHydrator()->hydrate($input->getArguments(), $this->getConfigObject());
-        $this->getService()->setConfigObject($this->getConfigObject());
-        $this->getService()->mock();
-
-        //echo messages
-    }
-
-    /**
-     * @param \Zend\Stdlib\Hydrator\ClassMethods $hydrator
-     */
-    public function setHydrator($hydrator)
-    {
-        $this->hydrator = $hydrator;
-    }
-
-    /**
-     * @return \Zend\Stdlib\Hydrator\ClassMethods
-     */
-    public function getHydrator()
-    {
-        return $this->hydrator;
-    }
-
-    /**
-     * @param mixed $configObject
-     */
-    public function setConfigObject($configObject)
-    {
-        $this->configObject = $configObject;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getConfigObject()
-    {
-        return $this->configObject;
-    }
-
-    /**
-     * @param mixed $service
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
-
-
 } 

@@ -2,31 +2,54 @@
 
 namespace MageMocker\Entity;
 
-class ProductConfig
+/**
+ * Class ProductConfig
+ * @package MageMocker\Entity
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
+ */
+class ProductConfig implements ConfigInterface
 {
 
+    /**
+     * @var int
+     */
     protected $amount;
 
+    /**
+     * @var int
+     */
     protected $typeId;
 
+    /**
+     * @var int
+     */
     protected $websiteId;
 
+    /**
+     * @var int
+     */
     protected $storeId;
 
+    /**
+     * @var int
+     */
     protected $attributeSetId;
 
+    /**
+     * @var array
+     */
     protected $categoryIds;
 
     /**
-     * @param mixed $amount
+     * @param int $amount
      */
     public function setAmount($amount)
     {
-        $this->amount = $amount;
+        $this->amount = (int) $amount;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getAmount()
     {
@@ -34,15 +57,15 @@ class ProductConfig
     }
 
     /**
-     * @param mixed $attributeSetId
+     * @param int $attributeSetId
      */
     public function setAttributeSetId($attributeSetId)
     {
-        $this->attributeSetId = $attributeSetId;
+        $this->attributeSetId = (int) $attributeSetId;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getAttributeSetId()
     {
@@ -50,31 +73,15 @@ class ProductConfig
     }
 
     /**
-     * @param mixed $categoryIds
-     */
-    public function setCategoryIds($categoryIds)
-    {
-        $this->categoryIds = $categoryIds;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategoryIds()
-    {
-        return $this->categoryIds;
-    }
-
-    /**
-     * @param mixed $storeId
+     * @param int $storeId
      */
     public function setStoreId($storeId)
     {
-        $this->storeId = $storeId;
+        $this->storeId = (int) $storeId;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getStoreId()
     {
@@ -82,15 +89,15 @@ class ProductConfig
     }
 
     /**
-     * @param mixed $typeId
+     * @param int $typeId
      */
     public function setTypeId($typeId)
     {
-        $this->typeId = $typeId;
+        $this->typeId = (int) $typeId;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getTypeId()
     {
@@ -98,19 +105,35 @@ class ProductConfig
     }
 
     /**
-     * @param mixed $websiteId
+     * @param int $websiteId
      */
     public function setWebsiteId($websiteId)
     {
-        $this->websiteId = $websiteId;
+        $this->websiteId = (int) $websiteId;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getWebsiteId()
     {
         return $this->websiteId;
+    }
+
+    /**
+     * @param array $categoryIds
+     */
+    public function setCategoryIds(array $categoryIds)
+    {
+        $this->categoryIds = $categoryIds;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategoryIds()
+    {
+        return $this->categoryIds;
     }
 
 }

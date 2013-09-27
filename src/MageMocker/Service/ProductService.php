@@ -1,31 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aydin
- * Date: 9/24/13
- * Time: 11:45 PM
- */
 
 namespace MageMocker\Service;
 
-use MageMocker\Entity\ProductConfig;
-use Faker\Factory as FakerFactory;
+/**
+ * Class ProductService
+ * @package MageMocker\Service
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
+ */
+class ProductService extends AbstractService implements ServiceInterface {
 
-class ProductService {
-
-    protected $configObject;
-
-    protected $faker;
-
-    protected $messages = array();
-
-    public function __constuct(ProductConfig $productConfig)
-    {
-        $this->productConfig = $productConfig;
-        $this->faker = FakerFactory::create();
-
-    }
-
+    /**
+     * Generate fake products
+     * @return array
+     */
     public function mock()
     {
 
@@ -62,6 +49,10 @@ class ProductService {
         return $this->messages;
     }
 
+    /**
+     * Save Product
+     * @param Mage_Catalog_Model_Product $product
+     */
     public function save(Mage_Catalog_Model_Product $product)
     {
         try {
@@ -80,23 +71,4 @@ class ProductService {
             $this->messages[] = $e->getMessage();
         }
     }
-
-    /**
-     * @param mixed $configObject
-     */
-    public function setConfigObject($configObject)
-    {
-        $this->configObject = $configObject;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getConfigObject()
-    {
-        return $this->configObject;
-    }
-
-
-
 } 

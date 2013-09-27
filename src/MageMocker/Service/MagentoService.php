@@ -1,26 +1,36 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: aydin
- * Date: 9/24/13
- * Time: 10:50 PM
- */
 
 namespace MageMocker\Service;
 
-
+/**
+ * Class MagentoService
+ * @package MageMocker\Service
+ * @author Aydin Hassan <aydin@hotmail.co.uk>
+ */
 class MagentoService {
 
+    /**
+     * @var string
+     */
     protected $appFile;
 
+    /**
+     * @param string $appFile
+     */
     public function __construct($appFile) {
-       $this->appFile = $appFile;
+       $this->appFile = (string) $appFile;
     }
 
+    /**
+     * @return bool
+     */
     public function validate() {
         return is_readable($this->getAppFile());
     }
 
+    /**
+     * Bootstrap Magento Application
+     */
     public function bootstrap() {
         require_once $this->getAppFile();
         Mage::setIsDeveloperMode(true);
@@ -32,20 +42,18 @@ class MagentoService {
     }
 
     /**
-     * @param mixed $appFile
+     * @param string $appFile
      */
     public function setAppFile($appFile)
     {
-        $this->appFile = $appFile;
+        $this->appFile = (string) $appFile;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAppFile()
     {
         return $this->appFile;
     }
-
-
 } 

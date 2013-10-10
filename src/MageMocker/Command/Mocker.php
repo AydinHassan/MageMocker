@@ -2,6 +2,7 @@
 
 namespace MageMocker\Command;
 
+use MageMocker\Service\MagentoService;
 use Symfony\Component\Console\Application;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use MageMocker\Command\ProductCommand;
@@ -32,13 +33,15 @@ class Mocker {
         $this->application->add(new ProductCommand(
             new ClassMethods(),
             new ProductService(),
-            new ProductConfig()
+            new ProductConfig(),
+            new MagentoService()
         ));
 
         $this->application->add(new AddToCartCommand(
             new ClassMethods(),
             new AddToCartService(),
-            new AddToCartConfig()
+            new AddToCartConfig(),
+            new MagentoService()
         ));
 
         $this->application->run();

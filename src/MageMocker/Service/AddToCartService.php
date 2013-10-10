@@ -16,9 +16,10 @@ class AddToCartService extends AbstractService implements ServiceInterface {
      */
     public function mock()
     {
+
         $config     = $this->getConfigObject();
-        $cart       = Mage::getSingleton('checkout/cart');
-        $product    = new Mage_Catalog_Model_Product();
+        $cart       = \Mage::getSingleton('checkout/cart');
+        $product    = new \Mage_Catalog_Model_Product();
 
         $product->load($config->getProductId());
 

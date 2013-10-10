@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4c2044ab107291b7094283e0cf98f4ea",
+    "hash": "532c07879a8f64825416c7e80ff24fa4",
     "packages": [
         {
             "name": "fzaninotto/faker",
@@ -58,12 +58,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "2b9e91a60b4cac3edae1aaef23b9cb25b37fb627"
+                "reference": "e430d7416327a93be77b3c4844c191a10cc8c1c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/2b9e91a60b4cac3edae1aaef23b9cb25b37fb627",
-                "reference": "2b9e91a60b4cac3edae1aaef23b9cb25b37fb627",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/e430d7416327a93be77b3c4844c191a10cc8c1c7",
+                "reference": "e430d7416327a93be77b3c4844c191a10cc8c1c7",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-22 18:04:51"
+            "time": "2013-09-25 06:04:58"
         },
         {
             "name": "zendframework/zend-stdlib",

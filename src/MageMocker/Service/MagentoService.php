@@ -2,6 +2,7 @@
 
 namespace MageMocker\Service;
 
+
 /**
  * Class MagentoService
  * @package MageMocker\Service
@@ -12,48 +13,38 @@ class MagentoService {
     /**
      * @var string
      */
-    protected $appFile;
-
-    /**
-     * @param string $appFile
-     */
-    public function __construct($appFile) {
-       $this->appFile = (string) $appFile;
-    }
+    protected $appDir = '';
 
     /**
      * @return bool
      */
     public function validate() {
-        return is_readable($this->getAppFile());
+        return is_readable($this->getAppDir());
     }
 
     /**
      * Bootstrap Magento Application
      */
     public function bootstrap() {
-        require_once $this->getAppFile();
-        Mage::setIsDeveloperMode(true);
-        umask(0);
-        Mage::app();
-        Mage::app()
-            ->setCurrentStore(Mage::getModel('core/store')
-            ->load(Mage_Core_Model_App::ADMIN_STORE_ID));
+        require_once $this->getAppDir() . '/app/Mage.php';
+        \Mage::app('admin');
     }
 
     /**
-     * @param string $appFile
+     * @param $appDir
+     * @return $this
      */
-    public function setAppFile($appFile)
+    public function setAppDir($appDir)
     {
-        $this->appFile = (string) $appFile;
+        $this->appDir = (string) $appDir;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getAppFile()
+    public function getAppDir()
     {
-        return $this->appFile;
+        return $this->appDir;
     }
 } 

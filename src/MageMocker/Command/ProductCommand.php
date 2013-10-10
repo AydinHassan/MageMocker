@@ -19,6 +19,8 @@ class ProductCommand extends AbstractCommand implements CommandInterface
      */
     public function configure()
     {
+        parent::configure();
+
         $this->setName('magemocker:product')
              ->setDescription('Create Fake Magento products')
              ->addArgument(
@@ -40,6 +42,11 @@ class ProductCommand extends AbstractCommand implements CommandInterface
                  'attribute_set_id',
                  InputArgument::REQUIRED,
                  'Attribute Set Id'
+             )
+             ->addArgument(
+                 'amount',
+                 InputArgument::REQUIRED,
+                 'Amount of products to add'
              )
              ->addArgument(
                  'category_ids',

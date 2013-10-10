@@ -2,6 +2,7 @@
 
 namespace MageMocker\Command;
 
+use MageMocker\Service\MagentoService;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -9,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use MageMocker\Service\ServiceInterface;
 use MageMocker\Entity\ConfigInterface;
+use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class AbstractCommand
@@ -33,27 +35,52 @@ abstract class AbstractCommand extends SymfonyCommand {
     protected $configObject;
 
     /**
-     * @param \Zend\Stdlib\Hydrator\ClassMethods $hydrator
-     * @param \MageMocker\Service\ServiceInterface $service
-     * @param \MageMocker\Entity\ConfigInterface $configObject
+     * @param ClassMethods $hydrator
+     * @param ServiceInterface $service
+     * @param ConfigInterface $configObject
+     * @param MagentoService $magentoService
      */
     public function __construct(
         ClassMethods $hydrator,
         ServiceInterface $service,
-        ConfigInterface $configObject
+        ConfigInterface $configObject,
+        MagentoService $magentoService
     ) {
-        $this->hydrator     = $hydrator;
-        $this->service      = $service;
-        $this->configObject = $configObject;
+        $this->hydrator         = $hydrator;
+        $this->service          = $service;
+        $this->configObject     = $configObject;
+        $this->magentoService   = $magentoService;
         parent::__construct();
+    }
+
+    protected function configure() {
+        $this->addArgument(
+            'app_path',
+            InputArgument::REQUIRED,
+            'Magento Application Path'
+        );
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @return int|null|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
+        $path = $input->getArgument('app_path');
+        $mageService = $this->getMagentoService()
+                            ->setAppDir($path);
+
+        if(!$mageService->validate()) {
+            $output->writeln('<error>Directory given is not a valid Magento Install</error>');
+            $output->writeln('<error>Cannot find app/Mage.php. </error>');
+            return;
+        }
+
+        $mageService->bootstrap();
+
         $this->getHydrator()->hydrate($input->getArguments(), $this->getConfigObject());
         $this->getService()->setConfigObject($this->getConfigObject());
         $messages = $this->getService()->mock();
@@ -116,4 +143,24 @@ abstract class AbstractCommand extends SymfonyCommand {
     {
         return $this->service;
     }
+
+    /**
+     * @return \MageMocker\Service\MagentoService
+     */
+    public function getMagentoService()
+    {
+        return $this->magentoService;
+    }
+
+    /**
+     * @param \MageMocker\Service\MagentoService $magentoService
+     * @return $this
+     */
+    public function setMagentoService($magentoService)
+    {
+        $this->magentoService = $magentoService;
+        return $this;
+    }
+
+
 } 

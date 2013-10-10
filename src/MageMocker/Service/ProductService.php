@@ -9,6 +9,8 @@ namespace MageMocker\Service;
  */
 class ProductService extends AbstractService implements ServiceInterface {
 
+
+
     /**
      * Generate fake products
      * @return array
@@ -20,7 +22,7 @@ class ProductService extends AbstractService implements ServiceInterface {
         $amount = $config->getAmount();
 
         for($i = 0; $i < $amount; $i++ ) {
-            $product = Mage::getModel('catalog/product')
+            $product = \Mage::getModel('catalog/product')
                 ->setTypeId($config->getTypeId())
                 ->setWebsiteIDs(array($config->getWebsiteId()))
                 ->setStoreIDs(array($config->getStoreId()))
@@ -31,10 +33,9 @@ class ProductService extends AbstractService implements ServiceInterface {
                 ->setName($this->faker->sentence(4))
                 ->setDescription($this->faker->text)
                 ->setPrice($this->faker->randomDigitNotNull)
-                ->setSku($this->faker->randomDigitNotNull)
                 ->setWeight($this->faker->randomDigitNotNull)
                 ->setTaxClassId(0)
-                ->setVisibility(Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+                ->setVisibility(\Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
                 ->setStatus(1)
                 ->setStockData(array(
                     'is_in_stock'   => 1,
@@ -53,22 +54,26 @@ class ProductService extends AbstractService implements ServiceInterface {
      * Save Product
      * @param Mage_Catalog_Model_Product $product
      */
-    public function save(Mage_Catalog_Model_Product $product)
+    public function save( $product)
     {
         try {
             $errors = $product->validate();
+
             if (is_array($errors)) {
                 foreach ($errors as $code => $error) {
                     if($error === true) {
-                        $this->messages[] = Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code);
+                        $this->messages[] = \Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code);
                     } else {
                         $this->messages[] = $error;
                     }
 
                 }
+            } else {
+                $product->save();
             }
-        } catch (Mage_Core_Exception $e) {
+        } catch (\Mage_Core_Exception $e) {
             $this->messages[] = $e->getMessage();
+            var_dump($this->messages);
         }
     }
 } 

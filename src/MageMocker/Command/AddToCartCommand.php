@@ -18,6 +18,9 @@ class AddToCartCommand extends AbstractCommand implements CommandInterface {
      */
     public function configure()
     {
+
+        parent::configure();
+
         $this->setName('magemocker:addtocart')
             ->setDescription('Add Products To Your Cart')
             ->addArgument(

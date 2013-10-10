@@ -31,10 +31,10 @@ class AbstractService {
     /**
      * @param ConfigInterface $configObject
      */
-    public function __constuct(ConfigInterface $configObject)
+    public function __construct()
     {
-        $this->configObject = $configObject;
         $this->faker = FakerFactory::create();
+
     }
 
     /**
